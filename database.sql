@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 09, 2025 at 07:59 PM
+-- Generation Time: Apr 09, 2025 at 08:59 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -64,7 +64,11 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`id`, `name`, `user_id`, `created_at`, `updated_at`) VALUES
-(1, 'Food', 1, '2025-04-09 11:57:45', '2025-04-09 11:57:45');
+(1, 'Food', 1, '2025-04-09 11:57:45', '2025-04-09 11:57:45'),
+(2, 'Food', 2, '2025-04-09 12:26:55', '2025-04-09 12:27:12'),
+(3, 'Vegitable', 2, '2025-04-09 12:27:33', '2025-04-09 12:27:33'),
+(4, 'Food', 3, '2025-04-09 12:43:04', '2025-04-09 12:43:04'),
+(5, 'Food', 4, '2025-04-09 12:49:30', '2025-04-09 12:49:30');
 
 -- --------------------------------------------------------
 
@@ -81,6 +85,16 @@ CREATE TABLE `customers` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `customers`
+--
+
+INSERT INTO `customers` (`id`, `name`, `email`, `mobile`, `user_id`, `created_at`, `updated_at`) VALUES
+(1, 'Saju', 'saju12452@gmail.com', '01711215452', 1, '2025-04-09 12:17:59', '2025-04-09 12:17:59'),
+(2, 'Saju', 'saju17485@gmail.com', '01745115541', 2, '2025-04-09 12:28:56', '2025-04-09 12:28:56'),
+(3, 'Rahim', 'rahim124@gmail.com', '01714524114', 3, '2025-04-09 12:44:19', '2025-04-09 12:44:19'),
+(4, 'Rahim', 'rahim1245@gmail.com', '01711525452', 4, '2025-04-09 12:51:53', '2025-04-09 12:51:53');
 
 -- --------------------------------------------------------
 
@@ -116,6 +130,15 @@ CREATE TABLE `invoices` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `invoices`
+--
+
+INSERT INTO `invoices` (`id`, `total`, `discount`, `vat`, `payable`, `user_id`, `customer_id`, `created_at`, `updated_at`) VALUES
+(1, '250', '0', '0', '0', 2, 2, '2025-04-09 12:29:33', '2025-04-09 12:29:33'),
+(2, '250', '0', '0', '0', 3, 3, '2025-04-09 12:44:40', '2025-04-09 12:44:40'),
+(3, '250', '0', '0', '0', 4, 4, '2025-04-09 12:52:12', '2025-04-09 12:52:12');
+
 -- --------------------------------------------------------
 
 --
@@ -132,6 +155,15 @@ CREATE TABLE `invoice_products` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `invoice_products`
+--
+
+INSERT INTO `invoice_products` (`id`, `invoice_id`, `product_id`, `user_id`, `qty`, `sale_price`, `created_at`, `updated_at`) VALUES
+(1, 1, 2, 2, '1', '250', '2025-04-09 12:29:33', '2025-04-09 12:29:33'),
+(2, 2, 3, 3, '1', '250', '2025-04-09 12:44:40', '2025-04-09 12:44:40'),
+(3, 3, 4, 4, '1', '250', '2025-04-09 12:52:12', '2025-04-09 12:52:12');
 
 -- --------------------------------------------------------
 
@@ -229,7 +261,10 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `user_id`, `category_id`, `name`, `price`, `unit`, `image`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 'Pran Rice', '150', '5', NULL, '2025-04-09 11:58:30', '2025-04-09 11:58:30');
+(1, 1, 1, 'Pran Rice', '150', '5', NULL, '2025-04-09 11:58:30', '2025-04-09 11:58:30'),
+(2, 2, 2, 'Pran Miniket Rice', '250', '49', 'uploads/1744223299.jpg', '2025-04-09 12:28:19', '2025-04-09 12:29:33'),
+(3, 3, 4, 'Pran Miniket Rice', '250', '24', 'uploads/1744224223.jpg', '2025-04-09 12:43:43', '2025-04-09 12:44:40'),
+(4, 4, 5, 'Pran Miniket Rice', '250', '24', 'uploads/1744224597.jpg', '2025-04-09 12:49:57', '2025-04-09 12:52:12');
 
 -- --------------------------------------------------------
 
@@ -251,8 +286,11 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('PsaJWnAVyVtaJRbpEa140teKTNSFt1xXSZTE0oHH', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiMHRBeHZYc2NkRDdFMlVRN3g4WWdHdVhZMWJ4TGxhVjZHVHBaaXBzOSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NToiZW1haWwiO3M6MTg6InNhanUuZ3ViQGdtYWlsLmNvbSI7czo3OiJ1c2VyX2lkIjtpOjE7fQ==', 1744221522),
-('xGZF0g2GcFHOrZogtTjHjqoXmxA3jI4YHTFnL5Yd', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiSkMxZ3JrTFQxVERDdW1nTmNZQ2dVMXhyMTFhS0Z3NkxVdldLVVlxMSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NToiZW1haWwiO3M6MTg6InNhanUuZ3ViQGdtYWlsLmNvbSI7czo3OiJ1c2VyX2lkIjtpOjE7fQ==', 1744142810);
+('DiYamKE06KQblQ3s2TgqG4BCOnAFWaJztpHblHJJ', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiMXZudXMweDdIckUxWXY2TFlZWGpQZ3ZvSGdTbG5Wcm5LZlg3VlAxZyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1744222234),
+('IEQFQTpihOZ0kqHTvX1lhme9QeADWxW89QZQvD7r', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:137.0) Gecko/20100101 Firefox/137.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiOVEyaDdXc2JudzFmbldUSHcwS2xSU0JhY09XWFZxZk9kOXY3cWhXcCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1744222823),
+('LCz0F5OjlSt5maAO5YMFGRkUqu7nrdxuXRdc5I0v', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiSXdpNXRwMHlKUU42N2llamppOXJjb1ZFNU1iMXExUlRzMlJvZW02QSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1744222093),
+('PsaJWnAVyVtaJRbpEa140teKTNSFt1xXSZTE0oHH', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il9mbGFzaCI7YToyOntzOjM6Im5ldyI7YTowOnt9czozOiJvbGQiO2E6MDp7fX1zOjY6Il90b2tlbiI7czo0MDoiRFdnMFNudWl1QllqNU9IRnFQQmRnTEpyeDVRakROem80akptdllscSI7czo1OiJlbWFpbCI7czoxNzoic2FqdTEyNEBnbWFpbC5jb20iO3M6NzoidXNlcl9pZCI7aTo0O30=', 1744224916),
+('tcx56NfdQNjvckkqRb3NKdeGuqzzZyDkRlDUnoCE', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:137.0) Gecko/20100101 Firefox/137.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiR0xXMjlOcFpGVkRIRk05WGlDQnlDZ0FUeWlkZ1VRdEl1N2Ixb21TdiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1744222534);
 
 -- --------------------------------------------------------
 
@@ -278,7 +316,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `otp`, `password`, `mobile`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'S A Saju', 'saju.gub@gmail.com', NULL, '4427', '123456', '01711853814', NULL, '2025-04-08 14:00:34', '2025-04-08 14:02:56');
+(1, 'S A Saju', 'saju.gub@gmail.com', NULL, '2641', '123456', '01711853814', NULL, '2025-04-08 14:00:34', '2025-04-09 12:35:12'),
+(2, 'Shahjahan Ahamed Saju', 'saju12452@gmail.com', NULL, '0', '123456', '01711853814', NULL, '2025-04-09 12:26:09', '2025-04-09 12:26:09'),
+(3, 'Saju', 'saju141@gmail.com', NULL, '0', '123456', '01711853814', NULL, '2025-04-09 12:42:26', '2025-04-09 12:42:26'),
+(4, 'saju', 'saju124@gmail.com', NULL, '0', '123456', '01452145214', NULL, '2025-04-09 12:48:45', '2025-04-09 12:54:57');
 
 --
 -- Indexes for dumped tables
@@ -390,13 +431,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -408,13 +449,13 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `invoices`
 --
 ALTER TABLE `invoices`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `invoice_products`
 --
 ALTER TABLE `invoice_products`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `jobs`
@@ -432,13 +473,13 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables
