@@ -10,7 +10,7 @@
             <div class="col-md-7 col-lg-6 center-screen">
                 <div class="card animated fadeIn w-90  p-4">
                     <div class="card-body">
-                        <h4>Sales Inventory </h4>
+                        <h4>Point of Sale </h4>
                         <Link href="/login" class="btn w-100 btn-success">Start </Link>
                     </div>
                 </div>
